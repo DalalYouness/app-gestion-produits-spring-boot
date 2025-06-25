@@ -3,6 +3,7 @@ package ma.enset.gestionproduits.security;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.User;
@@ -14,6 +15,8 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
+//second-method
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
 
     @Bean
@@ -36,8 +39,9 @@ public class SecurityConfig {
 
         return httpsecurity
                 .formLogin(Customizer.withDefaults())
-                .authorizeHttpRequests(aur -> aur.requestMatchers("/user/**").hasRole("USER"))
-                .authorizeHttpRequests(aur -> aur.requestMatchers("/admin/**").hasRole("ADMIN"))
+                //first-methode
+                //.authorizeHttpRequests(aur -> aur.requestMatchers("/user/**").hasRole("USER"))
+                //.authorizeHttpRequests(aur -> aur.requestMatchers("/admin/**").hasRole("ADMIN"))
                 .authorizeHttpRequests(aur -> aur.requestMatchers("/public/**").permitAll())
                 .authorizeHttpRequests(a -> a.anyRequest().authenticated())
                 .exceptionHandling(exh -> exh.accessDeniedPage("/notAuthorized"))

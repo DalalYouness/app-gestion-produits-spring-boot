@@ -40,6 +40,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(aur -> aur.requestMatchers("/admin/**").hasRole("ADMIN"))
                 .authorizeHttpRequests(aur -> aur.requestMatchers("/public/**").permitAll())
                 .authorizeHttpRequests(a -> a.anyRequest().authenticated())
+                .exceptionHandling(exh -> exh.accessDeniedPage("/notAuthorized"))
                 .build();
     }
 }
